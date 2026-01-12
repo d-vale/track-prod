@@ -78,10 +78,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(frontendDistPath));
 
   // Gérer les routes SPA - renvoyer index.html pour toutes les routes non-API
-  app.get('/*', (req, res) => {
+  app.use((req, res, next) => {
     // Ignorer les routes API
     if (req.path.startsWith('/api')) {
-      return res.status(404).json({ error: 'Not found' });
+      return next();
     }
     console.log('📄 Serving index.html for:', req.path);
     res.sendFile(path.join(frontendDistPath, 'index.html'));
