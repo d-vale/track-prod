@@ -29,9 +29,9 @@ RUN npm ci --only=production
 # Copier le code source backend
 COPY backend/ ./
 
-# Créer le dossier frontend/dist et copier les fichiers buildés depuis le stage 1
-RUN mkdir -p frontend/dist
-COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
+# Copier les fichiers buildés du frontend depuis le stage 1
+# Le backend cherche ../frontend/dist depuis /app, donc on copie dans /frontend/dist
+COPY --from=frontend-builder /app/frontend/dist /frontend/dist
 
 # Exposer le port (3000 par défaut, ou PORT env variable)
 EXPOSE 3000
