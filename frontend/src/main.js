@@ -5,6 +5,11 @@ import router from "./router";
 import { setDefaultBaseUrl, setDefaultHeaders } from "./libs/fetchJson";
 import VueApexCharts from "vue3-apexcharts";
 
+console.log('🔧 Environment variables:');
+console.log('VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL);
+console.log('VITE_WS_HOST:', import.meta.env.VITE_WS_HOST);
+console.log('VITE_CLOUDINARY_CLOUD_NAME:', import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
+
 setDefaultBaseUrl(import.meta.env.VITE_API_BASE_URL);
 
 const token = localStorage.getItem("token");

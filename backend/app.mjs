@@ -61,11 +61,29 @@ app.use("/api/users", usersRoutes);
 if (process.env.NODE_ENV === 'production') {
   const frontendDistPath = path.join(__dirname, '../frontend/dist');
 
+  console.log('🔧 NODE_ENV:', process.env.NODE_ENV);
+  console.log('🔧 __dirname:', __dirname);
+  console.log('🔧 Frontend dist path:', frontendDistPath);
+
+  // Vérifier si le dossier existe
+  if (fs.existsSync(frontendDistPath)) {
+    console.log('✅ Frontend dist path exists');
+    const files = fs.readdirSync(frontendDistPath);
+    console.log('📁 Files in dist:', files);
+  } else {
+    console.error('❌ Frontend dist path does NOT exist!');
+  }
+
   // Servir les fichiers statiques
   app.use(express.static(frontendDistPath));
 
   // Gérer les routes SPA - renvoyer index.html pour toutes les routes non-API
-app.get('/{*splat}', (req, res) => { 
+  app.get('*', (req, res) => {
+    // Ignorer les routes API
+    if (req.path.startsWith('/api')) {
+      return res.status(404).json({ error: 'Not found' });
+    }
+    console.log('📄 Serving index.html for:', req.path);
     res.sendFile(path.join(frontendDistPath, 'index.html'));
   });
 } else {

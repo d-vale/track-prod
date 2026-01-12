@@ -35,6 +35,9 @@ ENV VITE_MAPBOX_ACCESS_TOKEN=${VITE_MAPBOX_ACCESS_TOKEN}
 # Build le frontend pour la production
 RUN npm run build
 
+# Vérifier que le build a bien créé les fichiers
+RUN echo "📁 Listing frontend dist contents:" && ls -la dist/
+
 # Stage 2: Backend avec fichiers statiques
 FROM node:20-alpine AS production
 
@@ -52,6 +55,9 @@ COPY backend/ ./
 # Copier les fichiers buildés du frontend depuis le stage 1
 # Le backend cherche ../frontend/dist depuis /app, donc on copie dans /frontend/dist
 COPY --from=frontend-builder /app/frontend/dist /frontend/dist
+
+# Vérifier que les fichiers ont bien été copiés
+RUN echo "📁 Listing /frontend/dist contents:" && ls -la /frontend/dist/ || echo "❌ /frontend/dist does not exist!"
 
 # Exposer le port (3000 par défaut, ou PORT env variable)
 EXPOSE 3000
