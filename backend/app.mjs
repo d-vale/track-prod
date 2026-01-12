@@ -74,13 +74,14 @@ if (process.env.NODE_ENV === 'production') {
     console.error('❌ Frontend dist path does NOT exist!');
   }
 
-  // Servir les fichiers statiques
+  // Servir les fichiers statiques en premier
   app.use(express.static(frontendDistPath));
 
   // Gérer les routes SPA - renvoyer index.html pour toutes les routes non-API
+  // Ce middleware s'exécute seulement si express.static n'a pas trouvé de fichier
   app.use((req, res, next) => {
-    // Ignorer les routes API
-    if (req.path.startsWith('/api')) {
+    // Ignorer les routes API et les fichiers statiques
+    if (req.path.startsWith('/api') || req.path.includes('.')) {
       return next();
     }
     console.log('📄 Serving index.html for:', req.path);

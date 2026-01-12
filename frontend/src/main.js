@@ -5,12 +5,17 @@ import router from "./router";
 import { setDefaultBaseUrl, setDefaultHeaders } from "./libs/fetchJson";
 import VueApexCharts from "vue3-apexcharts";
 
-console.log('🔧 Environment variables:');
-console.log('VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL);
-console.log('VITE_WS_HOST:', import.meta.env.VITE_WS_HOST);
-console.log('VITE_CLOUDINARY_CLOUD_NAME:', import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
+// Fallbacks pour les variables d'environnement si non définies au build
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || window.location.origin;
+const WS_HOST = import.meta.env.VITE_WS_HOST || window.location.hostname;
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'dqbyulp69';
 
-setDefaultBaseUrl(import.meta.env.VITE_API_BASE_URL);
+console.log('🔧 Environment variables:');
+console.log('VITE_API_BASE_URL:', API_BASE_URL);
+console.log('VITE_WS_HOST:', WS_HOST);
+console.log('VITE_CLOUDINARY_CLOUD_NAME:', CLOUDINARY_CLOUD_NAME);
+
+setDefaultBaseUrl(API_BASE_URL);
 
 const token = localStorage.getItem("token");
 if (token) {
