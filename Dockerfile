@@ -12,6 +12,26 @@ RUN npm ci
 # Copier le code source frontend
 COPY frontend/ ./
 
+# Accepter les variables d'environnement comme build args avec valeurs par défaut
+ARG VITE_API_BASE_URL=https://tracks-xy4b.onrender.com
+ARG VITE_CLOUDINARY_CLOUD_NAME=dqbyulp69
+ARG VITE_CLOUDINARY_UPLOAD_PRESET="Unsigned Preset"
+ARG VITE_WS_CHANNEL_NAME=users
+ARG VITE_WS_HOST=tracks-xy4b.onrender.com
+ARG VITE_WS_PORT=443
+ARG VITE_WS_PROTOCOL=wss
+ARG VITE_MAPBOX_ACCESS_TOKEN
+
+# Les rendre disponibles pour le build Vite
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
+ENV VITE_CLOUDINARY_CLOUD_NAME=${VITE_CLOUDINARY_CLOUD_NAME}
+ENV VITE_CLOUDINARY_UPLOAD_PRESET=${VITE_CLOUDINARY_UPLOAD_PRESET}
+ENV VITE_WS_CHANNEL_NAME=${VITE_WS_CHANNEL_NAME}
+ENV VITE_WS_HOST=${VITE_WS_HOST}
+ENV VITE_WS_PORT=${VITE_WS_PORT}
+ENV VITE_WS_PROTOCOL=${VITE_WS_PROTOCOL}
+ENV VITE_MAPBOX_ACCESS_TOKEN=${VITE_MAPBOX_ACCESS_TOKEN}
+
 # Build le frontend pour la production
 RUN npm run build
 
