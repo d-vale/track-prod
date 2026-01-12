@@ -22,7 +22,7 @@ onMounted(() => {
   }
 });
 
-const { data, error, execute } = useFetchJson({
+const { data, error, loading, execute } = useFetchJson({
   url: "/api/auth/login",
   method: "POST",
   immediate: false,
@@ -57,7 +57,12 @@ const handleLogin = async () => {
 <template>
   <div class="flex flex-col items-center gap-8 min-h-screen justify-center">
     <ToastNotification />
-    <img class="h-10" src="/logo.svg" alt="" />
+    <svg class="h-10 w-10" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14.5 14.5H29V4.17233e-07L14.5 14.5Z" fill="var(--noir)"/>
+      <path d="M14.5 29H29V14.5L14.5 29Z" fill="var(--noir)"/>
+      <path d="M0 29H14.5V14.5L0 29Z" fill="var(--noir)"/>
+      <path d="M0 14.5H14.5V4.17233e-07L0 14.5Z" fill="var(--noir)"/>
+    </svg>
     <div class="flex flex-col items-center gap-2">
       <h2 class="text-2xl font-medium leading-tight">Se connecter</h2>
       <p class="text-md leading-tight text-gray-400 font-light">Veuillez entrer vos identifiants</p>
@@ -81,9 +86,31 @@ const handleLogin = async () => {
       />
       <button
         type="submit"
-        class="rounded-lg border border-transparent px-5 py-2.5 text-base font-medium bg-gray-800 dark:bg-[#1a1a1a] text-white cursor-pointer transition-colors hover:border-[#646cff]"
+        :disabled="loading"
+        class="rounded-lg border border-transparent px-5 py-2.5 text-base font-medium bg-gray-800 dark:bg-[#1a1a1a] text-white cursor-pointer transition-colors hover:border-[#646cff] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
-        Login
+        <svg
+          v-if="loading"
+          class="animate-spin h-5 w-5 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+        <span>{{ loading ? 'Connexion...' : 'Login' }}</span>
       </button>
     </form>
     <p class="text-sm text-gray-400">
