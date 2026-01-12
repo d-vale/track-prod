@@ -1,0 +1,31 @@
+# Node modules
+**/node_modules
+**/npm-debug.log
+
+# Git
+**/.git
+**/.gitignore
+
+# Environment files (will be set via Render)
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Build artifacts
+frontend/dist
+
+# IDE
+**/.vscode
+**/.idea
+**/.DS_Store
+
+# Test files
+**/coverage
+**/.nyc_output
+
+# Claude
+**/.claude
+
+# Logs
+**/logs
+**/*.log

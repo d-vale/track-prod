@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  # MongoDB pour le développement local
+  mongodb:
+    image: mongo:7
+    container_name: track-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: track-dev
+
+volumes:
+  mongodb_data:

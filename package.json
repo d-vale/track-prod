@@ -1,0 +1,22 @@
+{
+  "name": "track-prod",
+  "version": "1.0.0",
+  "description": "Application monolithique Track - Frontend et Backend combinés",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "npm run dev:backend & npm run dev:frontend",
+    "build:frontend": "cd frontend && npm run build",
+    "start": "cd backend && npm start",
+    "test:backend": "cd backend && npm test",
+    "docker:dev": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "keywords": ["track", "activity", "monolith"],
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

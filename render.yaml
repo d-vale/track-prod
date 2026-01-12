@@ -1,0 +1,52 @@
+services:
+  # Web Service pour l'application monolithique
+  - type: web
+    name: track-prod
+    env: docker
+    dockerfilePath: ./Dockerfile
+    region: frankfurt
+    plan: free
+    healthCheckPath: /api-docs
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DATABASE_URL
+        sync: false  # À configurer manuellement dans le dashboard
+      - key: SECRET_KEY
+        generateValue: true  # Générera automatiquement une clé secrète
+      - key: FRONTEND_URL
+        fromService:
+          type: web
+          name: track-prod
+          property: url
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: track-prod
+          property: url
+      - key: VITE_CLOUDINARY_CLOUD_NAME
+        value: dqbyulp69
+      - key: VITE_CLOUDINARY_UPLOAD_PRESET
+        value: Unsigned Preset
+      - key: VITE_WS_CHANNEL_NAME
+        value: users
+      - key: VITE_WS_HOST
+        fromService:
+          type: web
+          name: track-prod
+          property: host
+      - key: VITE_WS_PORT
+        value: 443
+      - key: VITE_WS_PROTOCOL
+        value: wss
+      - key: VITE_MAPBOX_ACCESS_TOKEN
+        sync: false  # À configurer manuellement dans le dashboard
+
+# NOTES:
+# 1. Après avoir créé le service, ajoutez manuellement dans le dashboard:
+#    - DATABASE_URL: Votre connection string MongoDB Atlas
+#    - VITE_MAPBOX_ACCESS_TOKEN: Votre token Mapbox
+# 2. La clé SECRET_KEY sera générée automatiquement
+# 3. Pour déployer: connectez ce repo à Render et il détectera automatiquement ce fichier

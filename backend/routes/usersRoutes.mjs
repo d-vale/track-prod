@@ -1,0 +1,13 @@
+import express from "express";
+import { usersController } from "../controllers/usersController.mjs";
+import { jwtAuthenticate } from "../middleware/jwtAuthenticate.mjs";
+
+const router = express.Router();
+
+router.get("/user", jwtAuthenticate, usersController.getUserInfos);
+router.get("/yearly", jwtAuthenticate, usersController.getYearlyStats);
+router.get("/monthly", jwtAuthenticate, usersController.getMonthlyStats);
+router.get("/weekly", jwtAuthenticate, usersController.getWeeklyStats);
+router.get("/best-performances", jwtAuthenticate, usersController.getBestPerformances)
+
+export default router;
