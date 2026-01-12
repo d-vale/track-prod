@@ -19,6 +19,7 @@ export function setDefaultHeaders(headers) {
  * @param {string} url - Base URL to use for all requests
  */
 export function setDefaultBaseUrl(url) {
+  if (!url) return;
   if (url[url.length - 1] === '/') url = url.slice(0, -1);
   defaultBaseUrl = url;
 }
