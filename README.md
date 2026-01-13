@@ -55,8 +55,8 @@ track-prod/
 
    # Frontend vars (VITE_*)
    VITE_API_BASE_URL=https://track-prod.onrender.com
-   VITE_CLOUDINARY_CLOUD_NAME=dqbyulp69
-   VITE_CLOUDINARY_UPLOAD_PRESET=Unsigned Preset
+   VITE_CLOUDINARY_CLOUD_NAME=
+   VITE_CLOUDINARY_UPLOAD_PRESET=
    VITE_WS_CHANNEL_NAME=users
    VITE_WS_HOST=track-prod.onrender.com
    VITE_WS_PORT=443
